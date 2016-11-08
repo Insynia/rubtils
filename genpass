@@ -1,10 +1,8 @@
 #!/usr/bin/env ruby
 
-def generate_pass(length)
-    length.times do
-       print [*(33..126)].sample.chr
-     end
-   puts
+def print_pass(length)
+  length.times { print [*(33..126)].sample.chr }
+  puts
 end
 
-generate_pass([ARGV[0].to_i, 8].max)
+print_pass([ARGV[0].to_i, 8].max)
