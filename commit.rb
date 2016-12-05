@@ -49,7 +49,7 @@ while c_h2.count > 0
   max = c_h2.values.max
   print "#{i} - #{c_h2.key(max)} avec #{max} commits ("
   c_h2.delete(c_h2.key(max))
-  percentage = max * 100 / t_c
+  percentage = max * 100 / t_c rescue 0
   if percentage >= 15
     print "#{percentage}% du total".green
   elsif percentage >= 5
