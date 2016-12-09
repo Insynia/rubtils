@@ -10,12 +10,13 @@
 ##
 
 require 'colorize'
+require_relative 'git_utils'
 
+authors = Git::get_authors_from_log
 c_h = Hash.new
-ARGV.each do |av|
-  c_h[av] = Integer(`git log | grep 'Author: #{av}' | wc -l`)
+authors.each do |author|
+  c_h[author] = Integer(`git log | grep 'Author: #{author}' | wc -l`)
 end
-
 m_c = c_h.values.max
 min_c = c_h.values.min
 a_c = 0
