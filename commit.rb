@@ -12,10 +12,25 @@
 require 'colorize'
 require_relative 'git_utils'
 
+def extract_options
+  options = Hash.new
+  ARGV.each do |av|
+    index = av.sub(/^--/, '')
+    options[index] = true
+  end
+  options
+end
+
 authors = Git::get_authors_from_log
+options = extract_options
 c_h = Hash.new
 authors.each do |author|
-  c_h[author] = Integer(`git log | grep 'Author: #{author}' | wc -l`)
+  if options['email']
+    index = "#{author[:name]} <#{author[:email]}>"
+  else
+    index = author[:name]
+  end
+  c_h[index] = Integer(`git log | grep 'Author: #{index}' | wc -l`)
 end
 m_c = c_h.values.max
 min_c = c_h.values.min
